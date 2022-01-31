@@ -1,0 +1,5 @@
+/* reset */
+body,h1,li,p,a{margin:0;padding:0;}
+ul{list-style:none;}
+h1{font-size:100%;}
+img{border:0;}
