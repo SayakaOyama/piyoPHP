@@ -18,23 +18,14 @@
     $stmt->execute();
     $row = $stmt->fetch();
     
-    $sql = "SELECT skn_type FROM images WHERE details_id = '".$id."'";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-    $type = $stmt->fetchColumn();
-
-    $sql = "SELECT * FROM images WHERE skn_type = '".$type."'";
+    $sql = "SELECT * FROM images WHERE details_id = '".$id."'";
     $query = $dbh->prepare($sql);
     $query->execute();
     if( $row > 0){
         while($row = $query->fetch(PDO::FETCH_ASSOC)){
-            $comment = $row["comment"]; 
             $imageURL = 'uploads/'.$row["file_name"];
     ?>
-        <p><?php echo $comment; ?></p>
-        <br>
         <img src="<?php echo $imageURL; ?>" alt="" />
-        
     <?php }
     }else{ ?>
        

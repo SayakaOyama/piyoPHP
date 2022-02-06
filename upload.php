@@ -4,16 +4,17 @@ $username = "selfusr";
 $password = "1234";
 try {
     $dbh = new PDO($dsn, $username, $password);
+    $dbh->query("set names utf8");
 } catch (PDOException $e) {
     $msg = $e->getMessage();
 }
 session_start();
 $dtls = $_SESSION['id'];
 
-$sql = "SELECT skn_type FROM details WHERE details_id = $dtls ";
+$sql = "SELECT skn_type FROM details WHERE details_id = $dtls";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
-$skn_type = $stmt->fetch();
+$skn_typ = $stmt->fetchColumn();
 
 $comment = $_POST['text'];
 // ファイルのアップロード先
@@ -29,7 +30,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
         // サーバーにファイルをアップロード
         if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
             // データベースに画像ファイル名を挿入
-            $insert = "INSERT INTO images(file_name, uploaded_on, details_id, comment, skn_type) VALUES ('".$fileName."', NOW(), '".$dtls."', '".$comment."','".$skn_type."')";
+            $insert = "INSERT INTO images(file_name, uploaded_on, details_id, comment, skn_type) VALUES ('".$fileName."', NOW(), '".$dtls."', '".$comment."','".$skn_typ."')";
             if($insert){
                 $stmt = $dbh->prepare($insert);
                 $stmt->execute();

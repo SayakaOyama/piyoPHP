@@ -12,6 +12,7 @@ $oily = $_POST['oily'];
 $acne = $_POST['acne'];
 $skinclr = $_POST['skinclr'];
 $ID = $_SESSION['id'];
+
 $dsn = "mysql:host=localhost; dbname=mydb; charset=utf8";
 $username = "selfusr";
 $password = "1234";
@@ -41,52 +42,37 @@ if ($member['id'] !== $ID) {
     $stmt->bindValue(':acne', $acne);
     $stmt->bindValue(':skinclr', $skinclr);
 
-    if($sex = 1 && $dry = 1 && $oily = 1 && $acne = 1){
+    if($sex == 1 && $dry == 1 && $oily == 1 && $acne == 1){
         $skn_type = 1;
-    }   
-    if($sex = 1 && $dry = 1 && $oily = 1 && $acne = 2){
+    }elseif($sex == 1 && $dry == 1 && $oily == 1 && $acne == 2){
         $skn_type = 2;
-    } 
-    if($sex = 1 && $dry = 1 && $oily = 2 && $acne = 1){
+    }elseif($sex == 1 && $dry == 1 && $oily == 2 && $acne == 1){
         $skn_type = 3;
-    }   
-    if($sex = 1 && $dry = 1 && $oily = 2 && $acne = 2){
+    }elseif($sex == 1 && $dry == 1 && $oily == 2 && $acne == 2){
         $skn_type = 4;
-    }   
-    if($sex = 1 && $dry = 2 && $oily = 1 && $acne = 1){
+    }elseif($sex == 1 && $dry == 2 && $oily == 1 && $acne == 1){
         $skn_type = 5;
-    }   
-    if($sex = 1 && $dry = 2 && $oily = 1 && $acne = 2){
+    }elseif($sex == 1 && $dry == 2 && $oily == 1 && $acne == 2){
         $skn_type = 6;
-    }   
-    if($sex = 1 && $dry = 2 && $oily = 2 && $acne = 1){
+    }elseif($sex == 1 && $dry == 2 && $oily == 2 && $acne == 1){
         $skn_type = 7;
-    }   
-    if($sex = 1 && $dry = 2 && $oily = 2 && $acne = 2){
+    }elseif($sex == 1 && $dry == 2 && $oily == 2 && $acne == 2){
         $skn_type = 8;
-    }   
-    if($sex = 2 && $dry = 1 && $oily = 1 && $acne = 1){
+    }elseif($sex == 2 && $dry == 1 && $oily == 1 && $acne == 1){
         $skn_type = 9;
-    }   
-    if($sex = 2 && $dry = 1 && $oily = 1 && $acne = 2){
+    }elseif($sex == 2 && $dry == 1 && $oily == 1 && $acne == 2){
         $skn_type = 10;
-    }   
-    if($sex = 2 && $dry = 1 && $oily = 2 && $acne = 1){
+    }elseif($sex == 2 && $dry == 1 && $oily == 2 && $acne == 1){
         $skn_type = 11;
-    }   
-    if($sex = 2 && $dry = 1 && $oily = 2 && $acne = 2){
+    }elseif($sex == 2 && $dry == 1 && $oily == 2 && $acne == 2){
         $skn_type = 12;
-    }   
-    if($sex = 2 && $dry = 2 && $oily = 1 && $acne = 1){
+    }elseif($sex == 2 && $dry == 2 && $oily == 1 && $acne == 1){
         $skn_type = 13;
-    }   
-    if($sex = 2 && $dry = 2 && $oily = 1 && $acne = 2){
+    }elseif($sex == 2 && $dry == 2 && $oily == 1 && $acne == 2){
         $skn_type = 14;
-    }   
-    if($sex = 2 && $dry = 2 && $oily = 2 && $acne = 1){
+    }elseif($sex == 2 && $dry == 2 && $oily == 2 && $acne == 1){
         $skn_type = 15;
-    }   
-    if($sex = 2 && $dry = 2 && $oily = 2 && $acne = 2){
+    }elseif($sex == 2 && $dry == 2 && $oily == 2 && $acne == 2){
         $skn_type = 16;
     } 
     
