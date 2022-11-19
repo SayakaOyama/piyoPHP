@@ -1,6 +1,7 @@
 <?php
-
+session_start ();
 $name = $_POST['name'];
+$_SESSION['name'] = $name;
 $mail = $_POST['mail'];
 $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 $dsn = "mysql:host=localhost; dbname=mydb; charset=utf8";
@@ -28,11 +29,23 @@ if ($member['mail'] == $mail) {
     $stmt->bindValue(':mail', $mail);
     $stmt->bindValue(':pass', $pass);
     $stmt->execute();
+    $sql = "SELECT id FROM member WHERE mail = :mail";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(':mail', $mail);
+    $stmt->execute();
+    $ID = $stmt->fetch(PDO::FETCH_ASSOC);
+    $_SESSION['id'] = $ID['id'];
     $msg = '会員登録が完了しました';
-    $link = '<a href="login.php">ログインページ</a>';
+    $link = '<a href="question_form.php">次へ</a>';
 }
 
 ?>
-
-<h1><?php echo $msg; ?></h1><!--メッセージの出力-->
+<link rel="stylesheet" href="register.css">
+<body>
+<div id="formWrapper">
+<div id="form">
+<p class="title"><?php echo $msg; ?></p><!--メッセージの出力-->
 <?php echo $link; ?>
+</div>
+</div>
+</body>

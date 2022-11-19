@@ -14,7 +14,7 @@ $dtls = $_SESSION['id'];
 $sql = "SELECT skn_type FROM details WHERE details_id = $dtls";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
-$skn_typ = $stmt->fetchColumn();
+$skn_type = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $comment = $_POST['text'];
 // ファイルのアップロード先
@@ -30,11 +30,11 @@ if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
         // サーバーにファイルをアップロード
         if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
             // データベースに画像ファイル名を挿入
-            $insert = "INSERT INTO images(file_name, uploaded_on, details_id, comment, skn_type) VALUES ('".$fileName."', NOW(), '".$dtls."', '".$comment."','".$skn_typ."')";
+            $insert = "INSERT INTO images(file_name, uploaded_on, details_id, comment, skn_type) VALUES ('".$fileName."', NOW(), '".$dtls."', '".$comment."','".$skn_type['skn_type']."')";
             if($insert){
                 $stmt = $dbh->prepare($insert);
                 $stmt->execute();
-                $statusMsg = " ".$fileName. " が投稿されました";
+                $statusMsg = "投稿されました";
             }else{
                 $statusMsg = "ファイルのアップロードに失敗しました、もう一度お試しください";
             } 

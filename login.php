@@ -20,8 +20,9 @@ if (password_verify($_POST['pass'], $member['pass'])) {
     //DBのユーザー情報をセッションに保存
     $_SESSION['id'] = $member['id'];
     $_SESSION['name'] = $member['nam'];
+    $_SESSION['pass'] = $_POST['pass'];
     $msg = 'ログインしました。';
-    $link = '<a href="index.php">ホーム</a>';
+    $link = '<META http-equiv="Refresh" content="3;URL=index.php">';
 } else {
     $msg = 'メールアドレスもしくはパスワードが間違っています。';
     $link = '<a href="login_form.php">戻る</a>';

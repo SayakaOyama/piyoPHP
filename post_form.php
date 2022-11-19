@@ -1,5 +1,6 @@
 <html lang="ja">
     <?php
+    session_start();
     $dsn = "mysql:host=localhost; dbname=mydb; charset=utf8";
     $username = "selfusr";
     $password = "1234";
@@ -10,7 +11,7 @@
         $msg = $e->getMessage();
     }
     
-    session_start();
+    
     $id= $_SESSION['id'];
 
     $sql = "SELECT COUNT(*) FROM images";

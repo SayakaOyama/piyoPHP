@@ -1,5 +1,10 @@
 <html lang="ja">
+<link rel="stylesheet" href="search_self_form.css">
+<body>
+    <div id="form">
+    <h3>同じ肌質の人の投稿一覧</h3>
     <?php
+    session_start();
     $dsn = "mysql:host=localhost; dbname=mydb; charset=utf8";
     $username = "selfusr";
     $password = "1234";
@@ -10,7 +15,7 @@
         $msg = $e->getMessage();
     }
     
-    session_start();
+    
     $id= $_SESSION['id'];
 
     $sql = "SELECT COUNT(*) FROM images";
@@ -18,26 +23,28 @@
     $stmt->execute();
     $row = $stmt->fetch();
     
-    $sql = "SELECT skn_type FROM images WHERE details_id = '".$id."'";
+    $sql = "SELECT skn_type FROM details WHERE details_id = '".$id."'";
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
-    $type = $stmt->fetchColumn();
-
-    $sql = "SELECT * FROM images WHERE skn_type = '".$type."'";
+    $type = $stmt->fetch();
+    $sql = "SELECT * FROM images WHERE skn_type = '".$type[0]."' AND NOT (details_id = '".$id."')";
     $query = $dbh->prepare($sql);
     $query->execute();
-    if( $row > 0){
-        while($row = $query->fetch(PDO::FETCH_ASSOC)){
-            $comment = $row["comment"]; 
-            $imageURL = 'uploads/'.$row["file_name"];
-    ?>
+    while($row = $query->fetch(PDO::FETCH_ASSOC)){
+        $comment = $row["comment"]; 
+        $imageURL = 'uploads/'.$row["file_name"];
+        ?>
+        <p>コメント</p>
         <p><?php echo $comment; ?></p>
         <br>
-        <img src="<?php echo $imageURL; ?>" alt="" />
-        
-    <?php }
-    }else{ ?>
-       
-    <p>画像が見つからず表示されません..</p>
-    <?php } ?>
+        <p class="resize"><img src="<?php echo $imageURL; ?>" alt="" /></p>
+        <br>
+        <?php
+    }
+    if(empty($comment)){
+            ?><a>投稿が見つかりません。</a><?php
+    }
+    ?>
+    </div>
+</body>
 </html>
